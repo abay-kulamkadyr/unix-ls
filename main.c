@@ -139,18 +139,20 @@ void option_l(struct stat* statBuf)
 
 void processDir(char * filename,struct options *option)
 {
-        DIR* dirfd= opendir(filename);
+        DIR* dirfd = opendir(filename);
         if (dirfd==NULL)
         {
             if(errno==ENOENT)
             {
-                perror("Directory does not exists");
+                char* error = malloc(BUFSIZ * sizeof(char));
+                snprintf(error, BUFSIZ, "ls: cannot access %s: No such file or directory\n", filename);
+                perror(error);
             }
             else
             {
-                perror("Unable to read directory");
+                printf("%s\n",filename);
             }
-            exit(EXIT_FAILURE);
+            return;
         }
         struct dirent* entity= readdir(dirfd);
         struct stat statBuf;
@@ -242,6 +244,7 @@ void processArguments(int argc, char* argv[], struct options* options)
             processDir(currentDirectory, options);
         }
         else{
+
             // checking if provided multiple directories
             bool isMultipleDirectories= argc-optind>=2;
             // passing each given path to be processed
