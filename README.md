@@ -29,9 +29,10 @@ The program supports the following options:
 
 ## Installation
 
-This project does not have any external dependencies; the entire program is contained within a single file.
+This project does not have any external dependencies; the entire program is contained within a single file. Makefile is provided
 
 ```bash
 # Installation instructions
 git clone git@github.com:abay-kulamkadyr/unix-ls.git
+make
 ```
